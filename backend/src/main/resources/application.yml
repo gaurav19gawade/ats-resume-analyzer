@@ -8,6 +8,7 @@ spring:
     hikari:
       connection-timeout: 20000
       maximum-pool-size: 5
+      connection-init-sql: "SELECT 1"
 
   jpa:
     hibernate:
@@ -17,6 +18,9 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
 
 server:
   port: ${PORT:8080}
