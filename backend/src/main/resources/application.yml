@@ -10,7 +10,6 @@ spring:
     hikari:
       connection-timeout: 20000
       maximum-pool-size: 5
-      connection-init-sql: "SELECT 1"
 
   jpa:
     hibernate:
@@ -20,9 +19,6 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
-        jdbc:
-          lob:
-            non_contextual_creation: true
 
 server:
   port: ${PORT:8080}
@@ -32,12 +28,13 @@ app:
     api-key: ${ANTHROPIC_API_KEY}
     base-url: https://api.anthropic.com
     model: claude-sonnet-4-6
-    max-tokens: 2048
+    max-tokens: 3000
     jd-max-chars: 8000
     resume-max-chars: 8000
 
   supabase:
     jwt-secret: ${SUPABASE_JWT_SECRET}
+    project-url: ${SUPABASE_PROJECT_URL}
 
   cors:
     allowed-origins: ${ALLOWED_ORIGINS:http://localhost:5173}

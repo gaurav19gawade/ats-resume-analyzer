@@ -26,6 +26,7 @@ public class AppProperties {
     @Data
     public static class Supabase {
         private String jwtSecret;
+        private String projectUrl;
     }
 
     @Data
