@@ -31,7 +31,7 @@ public class AnalysisHistory {
     @Column(name = "ats_platform", nullable = false)
     private String atsPlatform;
 
-    @Column(name = "overall_score")
+    @Column(name = "overall_score", columnDefinition = "numeric")
     private Double overallScore;
 
     @Column(name = "verdict")
