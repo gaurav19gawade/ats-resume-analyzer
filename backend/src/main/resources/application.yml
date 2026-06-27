@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: ats-analyzer
+
+  datasource:
+    url: ${DATABASE_URL}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 5
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+server:
+  port: ${PORT:8080}
+
+app:
+  anthropic:
+    api-key: ${ANTHROPIC_API_KEY}
+    base-url: https://api.anthropic.com
+    model: claude-sonnet-4-6
+    max-tokens: 2048
+    jd-max-chars: 4000
+    resume-max-chars: 4000
+
+  supabase:
+    jwt-secret: ${SUPABASE_JWT_SECRET}
+
+  cors:
+    allowed-origins: ${ALLOWED_ORIGINS:http://localhost:5173}
+
+logging:
+  level:
+    com.gaurav.atsanalyzer: INFO
+    org.springframework.security: WARN

@@ -1,0 +1,31 @@
+# ── Environment files (never commit) ──
+.env
+.env.local
+.env.*.local
+
+# ── Frontend ──
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# ── Backend ──
+backend/target/
+backend/*.class
+
+# ── IDE ──
+.idea/
+*.iml
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ── OS ──
+.DS_Store
+Thumbs.db
+
+# ── Logs ──
+*.log
+npm-debug.log*
