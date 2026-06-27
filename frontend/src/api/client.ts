@@ -4,7 +4,7 @@ import { supabase } from '../lib/supabase'
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080',
   headers: { 'Content-Type': 'application/json' },
-  timeout: 60000, // 60s — AI calls can be slow
+  timeout: 120000, // 120s — accounts for Render cold start + AI response time
 })
 
 // Attach Supabase JWT to every request

@@ -84,7 +84,7 @@ export function Step3ResumeInput() {
           {loading ? (
             <>
               <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              Analyzing... (may take 20-30s)
+              Analyzing... (may take up to 90s on first request)
             </>
           ) : (
             'Analyze resume →'
