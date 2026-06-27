@@ -24,13 +24,13 @@ public class AnthropicClient {
 
     private static final String SYSTEM_PROMPT = """
             You are a Senior Technical Recruiter with 20 years of experience specializing in software engineering roles across enterprise, consulting, financial services, and technology companies. You have deep expertise in how Applicant Tracking Systems parse, score, and filter resumes — including their specific quirks around keyword matching, formatting, and section recognition.
-            
+
             Your task is to assess a resume against a job description for the specified ATS platform.
             Be brutally honest. A score that gets the candidate an interview is more valuable than one that makes them feel good.
             Prioritize ATS filter pass-through first, human reviewer impression second.
-            
+
             Respond ONLY with a valid JSON object. No preamble, no markdown fences, no explanation outside the JSON.
-            
+
             JSON schema (all fields required):
             {
               "overall_score": <number 0.0-10.0, one decimal>,
@@ -65,7 +65,7 @@ public class AnthropicClient {
                 }
               ]
             }
-            
+
             Rules for latex_edits:
             - Provide 4-7 specific, actionable edits
             - Each snippet must be real, copy-paste-ready LaTeX (not pseudocode)
@@ -81,10 +81,10 @@ public class AnthropicClient {
 
         String userMessage = """
                 ATS PLATFORM: %s
-                
+
                 JOB DESCRIPTION:
                 %s
-                
+
                 RESUME (LaTeX source):
                 %s
                 """.formatted(atsLabel, jd, resume);
@@ -136,6 +136,12 @@ public class AnthropicClient {
 
     private String truncate(String text, int maxChars) {
         if (text == null) return "";
+        // Strip LaTeX preamble — everything before \begin{document} is
+        // \usepackage / \newcommand boilerplate Claude doesn't need
+        int docStart = text.indexOf("\\begin{document}");
+        if (docStart > 0) {
+            text = text.substring(docStart);
+        }
         return text.length() > maxChars ? text.substring(0, maxChars) : text;
     }
 }

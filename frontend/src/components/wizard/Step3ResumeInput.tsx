@@ -43,8 +43,8 @@ export function Step3ResumeInput() {
 
       <div className="bg-blue-50 border border-blue-100 rounded-lg px-4 py-3 mb-4">
         <p className="text-xs text-blue-700 leading-relaxed">
-          <strong>Tip:</strong> In Overleaf, press <code className="bg-blue-100 px-1 rounded">Ctrl+A</code> in the editor pane then <code className="bg-blue-100 px-1 rounded">Ctrl+C</code> to copy the full LaTeX source.
-          Plain text from the PDF preview also works but LaTeX source gives better edit suggestions.
+          <strong>Tip:</strong> Paste your LaTeX source from Overleaf. You can paste the full file — the preamble (<code className="bg-blue-100 px-1 rounded">\usepackage</code>, <code className="bg-blue-100 px-1 rounded">\newcommand</code> lines) is stripped automatically before analysis.
+          Or paste just from <code className="bg-blue-100 px-1 rounded">\begin&#123;document&#125;</code> onwards to save space. Plain text from the PDF preview also works but LaTeX source gives more precise edit suggestions.
         </p>
       </div>
 
