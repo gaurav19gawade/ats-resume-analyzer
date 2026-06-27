@@ -136,8 +136,6 @@ public class AnthropicClient {
 
     private String truncate(String text, int maxChars) {
         if (text == null) return "";
-        // Strip LaTeX preamble — everything before \begin{document} is
-        // \usepackage / \newcommand boilerplate Claude doesn't need
         int docStart = text.indexOf("\\begin{document}");
         if (docStart > 0) {
             text = text.substring(docStart);
