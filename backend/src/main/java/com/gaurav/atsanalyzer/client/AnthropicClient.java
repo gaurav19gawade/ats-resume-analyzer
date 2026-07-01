@@ -1,6 +1,8 @@
 package com.gaurav.atsanalyzer.client;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.gaurav.atsanalyzer.config.AppProperties;
 import com.gaurav.atsanalyzer.dto.AnalyzeRequest;
 import com.gaurav.atsanalyzer.dto.AnalyzeResponse;
@@ -114,7 +116,14 @@ public class AnthropicClient {
         String jsonText = stripMarkdownFences(extractText(rawResponse));
 
         try {
-            return objectMapper.readValue(jsonText, AnalyzeResponse.class);
+            // The Claude prompt above specifies snake_case JSON keys (overall_score, verdict_title, etc.)
+            // while AnalyzeResponse uses camelCase fields to match the frontend's own API contract.
+            // Use a scoped copy of the shared mapper here so this doesn't affect Jackson behavior
+            // elsewhere in the app (e.g. serializing AnalyzeResponse back to the frontend as camelCase).
+            ObjectMapper snakeCaseMapper = objectMapper.copy()
+                    .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE)
+                    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
+            return snakeCaseMapper.readValue(jsonText, AnalyzeResponse.class);
         } catch (Exception e) {
             log.error("Failed to parse Anthropic response: {}", jsonText, e);
             throw new RuntimeException("Failed to parse AI response. Please try again.");

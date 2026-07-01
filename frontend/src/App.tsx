@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import { ProtectedRoute } from './components/ProtectedRoute'
+import { ErrorBoundary } from './components/ErrorBoundary'
 import { Layout } from './components/layout/Layout'
 import { LoginPage } from './pages/LoginPage'
 import { AuthCallbackPage } from './pages/AuthCallbackPage'
@@ -12,7 +13,9 @@ import { TemplatesPage } from './pages/TemplatesPage'
 function ProtectedLayout({ children }: { children: React.ReactNode }) {
   return (
     <ProtectedRoute>
-      <Layout>{children}</Layout>
+      <Layout>
+        <ErrorBoundary>{children}</ErrorBoundary>
+      </Layout>
     </ProtectedRoute>
   )
 }
